@@ -1,5 +1,6 @@
 package com.example.flow.controller;
 
+import com.example.flow.dto.RegisterUserResponse;
 import com.example.flow.service.UserQueueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,8 @@ public class UserQueueController {
 
     // 등록할 수 있는 API
     @PostMapping("")
-    public Mono<?> register(@RequestParam(name = "user_id") Long userId) {
-        return userQueueService.registerWaitQueue(userId);
+    public Mono<RegisterUserResponse> register(@RequestParam(name = "user_id") Long userId) {
+        return userQueueService.registerWaitQueue(userId)
+                .map(RegisterUserResponse::new);
     }
 }
