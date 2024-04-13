@@ -17,8 +17,9 @@ public class UserQueueController {
 
     // 등록할 수 있는 API
     @PostMapping("")
-    public Mono<RegisterUserResponse> register(@RequestParam(name = "user_id") Long userId) {
-        return userQueueService.registerWaitQueue(userId)
+    public Mono<RegisterUserResponse> register(@RequestParam(name = "queue", defaultValue = "default") String queue,
+                                               @RequestParam(name = "user_id") Long userId) {
+        return userQueueService.registerWaitQueue(queue, userId)
                 .map(RegisterUserResponse::new);
     }
 }
