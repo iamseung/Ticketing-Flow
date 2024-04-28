@@ -57,6 +57,7 @@ public class UserQueueService {
 
     @Scheduled(initialDelay = 5000, fixedDelay = 10000)
     public void scheduleAllowUser() {
+        // 테스트 시에는 스케쥴 사용 X
         if(!scheduling) {
             log.info("pass scheduling");
             return;
