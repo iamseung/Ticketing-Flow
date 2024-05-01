@@ -148,4 +148,26 @@ class UserQueueServiceTest {
                 .expectNext(-1L)
                 .verifyComplete();
     }
+
+    @Test
+    void isNotAllowedByToken() {
+        StepVerifier.create(userQueueService.isAllowedByToken("default", 100L, ""))
+                .expectNext(false)
+                .verifyComplete();
+    }
+
+    @Test
+    void isAllowedByToken() {
+        StepVerifier.create(userQueueService.isAllowedByToken("default", 100L, "d333a5d4eb24f3f5cdd767d79b8c01aad3cd73d3537c70dec430455d37afe4b8"))
+                .expectNext(true)
+                .verifyComplete();
+    }
+
+    @Test
+    void generateToken() {
+        // input 값이 같으면 항상 같은 값을 반환
+        StepVerifier.create(userQueueService.generateToken("default", 100L))
+                .expectNext("d333a5d4eb24f3f5cdd767d79b8c01aad3cd73d3537c70dec430455d37afe4b8")
+                .verifyComplete();
+    }
 }
