@@ -78,6 +78,7 @@ public class UserQueueService {
             for(byte aByte : encodedHash) {
                 hexString.append(String.format("%02x", aByte));
             }
+
             return Mono.just(hexString.toString());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);

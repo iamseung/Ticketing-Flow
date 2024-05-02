@@ -51,7 +51,7 @@
                             const newUrl = window.location.origin + window.location.pathname + window.location.search;
                             window.location.href = newUrl;
                         })
-                        .catch(error => console.log(error));
+                        .catch(error => console.error(error));
                     return;
                 }
                 document.querySelector('#number').innerHTML = data.rank;
