@@ -2,6 +2,7 @@ package com.example.flow.controller;
 
 import com.example.flow.service.UserQueueService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,6 +10,7 @@ import org.springframework.web.reactive.result.view.Rendering;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class WaitingRoomController {
@@ -24,7 +26,7 @@ public class WaitingRoomController {
         2. 이미 등록돼서 에러가 발생한 경우, 랭크 반환
          */
         var key = "user-queue-%s-token".formatted(queue);
-        var cookieValue = exchange.getRequest().getCookies().getFirst(queue);
+        var cookieValue = exchange.getRequest().getCookies().getFirst(key);
         var token = (cookieValue == null) ? "" : cookieValue.getValue();
 
         return userQueueService.isAllowedByToken(queue, userId, token)
